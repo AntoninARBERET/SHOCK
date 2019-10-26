@@ -35,15 +35,6 @@ public class ControlScript : MonoBehaviour {
 		}
 		
 		
-	void OnCollisionEnter(Collision collision){
-		 if (Input.GetMouseButtonDown(0)){
-		 	Debug.Log("wesh");
-        	if(collision.transform.name == "Door_2"){
-    			collision.gameObject.GetComponent<Open>().openDoor();
-    	}
-        }
-
-    }
 
 	void OnGUI(){
 		GUI.Label (new Rect(0, 0, 200, 25), "Forward: W");
