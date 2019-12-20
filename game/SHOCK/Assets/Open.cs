@@ -8,7 +8,7 @@ public class Open : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class Open : MonoBehaviour
         open();
     }
     public void open(){
-    	if( openDoor==false){	
+    	if( openDoor==false){
         	getClosestPlayer(player);
         	openDoor=true;
         }
@@ -29,9 +29,9 @@ public class Open : MonoBehaviour
             if(dSqrToTarget < 3)
             {if (Input.GetMouseButtonDown(0)){
                 GetComponent<Animator>().enabled = true;
-    			Debug.Log("jr");
+    			//Debug.Log("jr");
             }
         }
-             
+
     }
 }
