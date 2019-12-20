@@ -2,25 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerCamer : MonoBehaviour
+public class ControllerCamera : MonoBehaviour
 {   public Transform target;
     public float distanceFromObject = 6f;
     public bool lookPl=false;
-
+    Vector3 playerPrevPos, playerMoveDir;
+    public float speed = 5;
+    public float a;
+    public float b;
+    public float c;
+        Vector3 offset;
+ public GameObject player;
     [SerializeField]
      private Vector3 offsetPosition;
- 
+
      [SerializeField]
      private Space offsetPositionSpace = Space.Self;
- 
+
      [SerializeField]
      private bool lookAt = true;
-
     void Start()
     {
-
+      playerPrevPos = player.transform.position;
     }
-    void Update(){
+
+
+    void LateUpdate () {
+      playerMoveDir = player.transform.position - playerPrevPos;
+      if (playerMoveDir != Vector3.zero)
+      {
+          transform.position = player.transform.position - playerMoveDir * distanceFromObject;
+          transform.position = new Vector3(transform.position.x+a, transform.position.y+b, transform.position.z+c);
+          //transform.position.y += h; // required height
+
+          transform.LookAt(player.transform.position);
+
+          playerPrevPos = player.transform.position;
+      }
+  }
+
+  /*  void Update(){
         if(lookPl){
             Refresh();
         }
@@ -36,10 +57,10 @@ public class ControllerCamer : MonoBehaviour
 
             Vector3 targetLastPosition;
             targetLastPosition = target.position - lookOnObject.normalized * distanceFromObject;
-            transform.position = targetLastPosition;   
+            transform.position = targetLastPosition;
 
             targetLastPosition.y = target.position.y + distanceFromObject/2;
-            transform.position =    targetLastPosition;     
+            transform.position =    targetLastPosition;
         }
     }
     public void setLookPl(){
@@ -51,10 +72,10 @@ public class ControllerCamer : MonoBehaviour
          if(target == null)
          {
              Debug.LogWarning("Missing target ref !", this);
- 
+
              return;
          }
- 
+
          // compute position
          if(offsetPositionSpace == Space.Self)
          {
@@ -64,7 +85,7 @@ public class ControllerCamer : MonoBehaviour
          {
              transform.position = target.position + offsetPosition;
          }
- 
+
          // compute rotation
          if(lookAt)
          {
@@ -74,5 +95,5 @@ public class ControllerCamer : MonoBehaviour
          {
              transform.rotation = target.rotation;
          }
-     }
+     }*/
 }
