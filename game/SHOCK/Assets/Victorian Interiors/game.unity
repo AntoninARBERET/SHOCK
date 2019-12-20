@@ -15683,8 +15683,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.9448853, z: 1}
-  m_Center: {x: 0, y: 0.90275764, z: 0}
+  m_Size: {x: 1, y: 1.8859575, z: 0.5702619}
+  m_Center: {x: 0, y: 0.9322216, z: 0.04369868}
 --- !u!54 &337923190
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29902,7 +29902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 480080, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 480080, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29942,15 +29942,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 480080, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 480080, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 480080, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 14320336, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_Enabled
@@ -29974,7 +29974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 442294, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.75
+      value: 5.795
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11438246, guid: 3081e3e8a9dc83640bd9bb991640c305, type: 3}
@@ -42399,8 +42399,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 10, y: 0, z: 11.358257}
+  m_Center: {x: 0, y: -0.000000035828982, z: 0.67913294}
 --- !u!4 &821569331 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4265172970536298, guid: af8195b225e509041958fe0d65970016,
@@ -101874,7 +101874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855228297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.54, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 40}
   m_Children: []
   m_Father: {fileID: 0}
