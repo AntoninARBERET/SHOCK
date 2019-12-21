@@ -14,7 +14,7 @@ public class PickObject : MonoBehaviour
     void Update()
     {
         float dist = Vector3.Distance(gameObject.transform.position, player.position);
-        if (dist <= 1.9f)
+        if (dist <= 2.0f)
         {
             hasPlayer = true;
         }
@@ -23,14 +23,14 @@ public class PickObject : MonoBehaviour
             hasPlayer = false;
         }
         if (hasPlayer && Input.GetKey(KeyCode.P))
-        {   Debug.Log("KEY CODE P");
+        {   //Debug.Log("KEY CODE P");
             GetComponent< Rigidbody>().isKinematic = true;
             transform.parent = playerCam;
             beingCarried = true;
         }
 
         if (beingCarried)
-        {Debug.Log("Heing cared");
+        {//Debug.Log("Heing cared");
             if (touched)
             {
                 GetComponent< Rigidbody>().isKinematic = false;
@@ -40,17 +40,23 @@ public class PickObject : MonoBehaviour
             }
 
             if (Input.GetMouseButtonDown(0))
-            {Debug.Log("Moues 0");
+            {//Debug.Log("Moues 0");
                 GetComponent< Rigidbody>().isKinematic = false;
                 transform.parent = null;
                 beingCarried = false;
                 GetComponent< Rigidbody>().AddForce(playerCam.forward * throwForce);
             }
             else if (Input.GetMouseButtonDown(1))
-            { Debug.Log("Mouse 1");
+            { //Debug.Log("Mouse 1");
                 GetComponent< Rigidbody>().isKinematic = false;
                 transform.parent = null;
                 beingCarried = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            { //water.gameObject.SetActive(true);
+            }
+            else if (Input.GetKeyUp(KeyCode.E))
+            { //water.gameObject.SetActive(false);
             }
         }
     }
