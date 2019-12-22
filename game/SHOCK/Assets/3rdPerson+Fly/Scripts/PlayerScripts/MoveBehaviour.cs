@@ -4,7 +4,7 @@
 public class MoveBehaviour : GenericBehaviour
 {
 	public float walkSpeed = 0.15f;                 // Default walk speed.
-	public float runSpeed = 1.0f;                   // Default run speed.
+	public float runSpeed = 0.15f;                   // Default run speed.
 	public float sprintSpeed = 2.0f;                // Default sprint speed.
 	public float speedDampTime = 0.1f;              // Default damp time to change the animations based on current speed.
 	public string jumpButton = "Jump";              // Default jump button.
