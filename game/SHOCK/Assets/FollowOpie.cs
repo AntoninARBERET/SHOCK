@@ -47,18 +47,21 @@ public class FollowOpie : MonoBehaviour
             gotoP1=false;
             waiting=true;
           }
-        }
-        if(waiting){
-          StartCoroutine(waitForAWhile());
         }else{
-          if(gotoP2){
-            EnterHouse();
-            if(transform.position.Equals(targetPosition2)){
-              gotoP2=false;
+          if(waiting){
+            StartCoroutine(waitForAWhile());
+          }else{
+            if(gotoP2){
+              EnterHouse();
+              if(transform.position.Equals(targetPosition2)){
+                gotoP2=false;
+              }
+            }
+            else{
+              StartCoroutine(disappear());
             }
           }
         }
-
       }
   }
 
@@ -74,6 +77,10 @@ public class FollowOpie : MonoBehaviour
         waiting=false;
         gotoP2=true;
     }
+    IEnumerator disappear(){
+          yield return new WaitForSeconds(3f);
+          transform.gameObject.SetActive(false);
+      }
     public void EnterHouse(){
           transform.LookAt(p2);
           GetComponent<Animator>().Play("Walk");
