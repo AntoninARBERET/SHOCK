@@ -26,6 +26,7 @@ public class FollowOpie : MonoBehaviour
           speed=0.1f;
           transform.position =Vector3.MoveTowards(transform.position,player.transform.position,speed);
         }
+        
         else{
           speed=0.0f;
         }
