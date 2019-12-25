@@ -64,7 +64,9 @@ public class FollowOpie : MonoBehaviour
         }
       }
   }
-
+  public void setCalibration(bool t){
+    calibration=t;
+  }
   private void inFrontOfHouse(){
     transform.LookAt(p1);
      GetComponent<Animator>().Play("Walk");
