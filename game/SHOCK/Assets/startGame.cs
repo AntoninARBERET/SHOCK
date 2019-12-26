@@ -11,6 +11,7 @@ public class startGame : MonoBehaviour
     //Vector3 C = new Vector3( 7f,0,  -6.25f );
     private Vector3 D = new Vector3( 4f,0,  -6f );
     public GameObject obj;
+    public GameObject objD;
     private int level= 1; // if calibration is in progress ==> level = 0
     void Start()
     {
@@ -25,17 +26,14 @@ public class startGame : MonoBehaviour
           switch(level){
           case 1:
               //Level 1 :  object destruction
-              Console.WriteLine("Level 1");
-              RaycastHit _hit = new RaycastHit();
-              if(Physics.Raycast(transform.position, transform.forward, out _hit,1))
-              {
-                  if(_hit.transform.tag == "0bj1")
-                 {
-                      GameObject dest=Instantiate(obj,new Vector3(-1.3f,0.5f,7f), transform.rotation) as GameObject;
-                      Console.WriteLine("HIT");
-                 }
+              //Debug.Log("Level 1");
+             if(transform.position.z<13f){
+               Destroy(obj,1f);
+    	         obj.transform.gameObject.SetActive(false);
+               GameObject dest=Instantiate(objD,new Vector3(-1.197861f,0.5023094f,7f), transform.rotation) as GameObject;
+               level++;
+               Debug.Log("HIT");
              }
-
               break;
           case 2:
               //Console.WriteLine("Level 2");
