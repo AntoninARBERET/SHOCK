@@ -15,6 +15,8 @@ public class FollowOpie : MonoBehaviour
   private bool gotoP1=true;
   private bool gotoP2=false;
   private bool waiting=false;
+  private int cptAudio=0;
+  private bool insideHouse=false;
   private Vector3 targetPosition1,targetPosition2;
     // Start is called before the first frame update
     void Start()
@@ -26,44 +28,50 @@ public class FollowOpie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if(!calibration){
-        transform.LookAt(player.transform);
-        if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out shot)){
-          target_dist=shot.distance;
-          if(target_dist>=allowed_dist){
-            speed=0.1f;
-            transform.position =Vector3.MoveTowards(transform.position,player.transform.position,speed);
+      if(!insideHouse){
+          if(cptAudio==0){
+          GetComponent<AudioSource>().Play();
+          cptAudio++;
           }
+          if(!calibration){
+            transform.LookAt(player.transform);
+            if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out shot)){
+              target_dist=shot.distance;
+              if(target_dist>=allowed_dist){
+                speed=0.1f;
+                transform.position =Vector3.MoveTowards(transform.position,player.transform.position,speed);
+              }
 
-          else{
-            speed=0.0f;
-          }
-        }
-      }
-      else{
-        if(gotoP1){
-          inFrontOfHouse();
-          if(transform.position.Equals(targetPosition1)){
-            gotoP1=false;
-            waiting=true;
-          }
-        }else{
-          if(waiting){
-            StartCoroutine(waitForAWhile());
-          }else{
-            if(gotoP2){
-              EnterHouse();
-              if(transform.position.Equals(targetPosition2)){
-                gotoP2=false;
+              else{
+                speed=0.0f;
               }
             }
-            else{
-              StartCoroutine(disappear());
+          }
+          else{
+            if(gotoP1){
+              inFrontOfHouse();
+              if(transform.position.Equals(targetPosition1)){
+                gotoP1=false;
+                waiting=true;
+              }
+            }else{
+              if(waiting){
+                StartCoroutine(waitForAWhile());
+              }else{
+                if(gotoP2){
+                  EnterHouse();
+                  if(transform.position.Equals(targetPosition2)){
+                    gotoP2=false;
+                  }
+                }
+                else{
+                  StartCoroutine(disappear());
+                }
+              }
             }
           }
-        }
       }
-  }
+}
   public void setCalibration(bool t){
     calibration=t;
   }
@@ -82,6 +90,7 @@ public class FollowOpie : MonoBehaviour
     IEnumerator disappear(){
           yield return new WaitForSeconds(3f);
           transform.gameObject.SetActive(false);
+          insideHouse=true;
       }
     public void EnterHouse(){
           transform.LookAt(p2);

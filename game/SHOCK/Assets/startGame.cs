@@ -27,12 +27,13 @@ public class startGame : MonoBehaviour
           case 1:
               //Level 1 :  object destruction
               //Debug.Log("Level 1");
-             if(transform.position.z<13f){
+             if(transform.position.z<13f && transform.position.y<1f && transform.position.x>-1.5f){
                Destroy(obj,1f);
     	         obj.transform.gameObject.SetActive(false);
                GameObject dest=Instantiate(objD,new Vector3(-1.197861f,0.5023094f,7f), transform.rotation) as GameObject;
                level++;
-               Debug.Log("HIT");
+
+               nero.gameObject.GetComponent<appear>().appearing(new Vector3(-0.36f,0.104f,9.746f));
              }
               break;
           case 2:
