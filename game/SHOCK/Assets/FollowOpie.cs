@@ -8,7 +8,7 @@ public class FollowOpie : MonoBehaviour
   public Transform p1;
   public Transform p2;
   float target_dist;
-  public float allowed_dist=0.75f;
+  private float allowed_dist=1f;
   float speed;
   RaycastHit shot;
   private bool calibration=true;

@@ -6,66 +6,41 @@ public class PickObject : MonoBehaviour
     public Transform player;
     public Transform playerCam;
     public float throwForce = 10;
-
+    public Transform water;
     private bool hasPlayer = false;
-    private bool beingCarried = false;
+    float target_dist;
+    float speed;
+    RaycastHit shot;
     private bool touched = false;
-
+    private  float allowed_dist=1f;
     void Update()
     {
         float dist = Vector3.Distance(gameObject.transform.position, player.position);
-        if (dist <= 2.0f)
+        if (dist<2f)
         {
-            hasPlayer = true;
+            touched = true;
         }
         else
         {
-            hasPlayer = false;
+            touched = false;
         }
-        if (hasPlayer && Input.GetKey(KeyCode.P))
-        {   //Debug.Log("KEY CODE P");
-            GetComponent< Rigidbody>().isKinematic = true;
-            transform.parent = playerCam;
-            beingCarried = true;
-        }
-
-        if (beingCarried)
-        {//Debug.Log("Heing cared");
-            if (touched)
-            {
-                GetComponent< Rigidbody>().isKinematic = false;
-                transform.parent = null;
-                beingCarried = false;
-                touched = false;
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {//Debug.Log("Moues 0");
-                GetComponent< Rigidbody>().isKinematic = false;
-                transform.parent = null;
-                beingCarried = false;
-                GetComponent< Rigidbody>().AddForce(playerCam.forward * throwForce);
-            }
-            else if (Input.GetMouseButtonDown(1))
-            { //Debug.Log("Mouse 1");
-                GetComponent< Rigidbody>().isKinematic = false;
-                transform.parent = null;
-                beingCarried = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            { //water.gameObject.SetActive(true);
-            }
-            else if (Input.GetKeyUp(KeyCode.E))
-            { //water.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    void OnTriggerEnter()
-    {
-        if (beingCarried)
+        if (touched && Input.GetKey(KeyCode.P))
         {
-            touched = true;
+          hasPlayer=true;
+        }
+        if(hasPlayer){
+          transform.parent = playerCam;
+          if (Input.GetKeyDown(KeyCode.E))
+          { water.gameObject.SetActive(true);
+          }
+          else if (Input.GetKeyUp(KeyCode.E))
+          { water.gameObject.SetActive(false);
+          }
+          if(Input.GetKey(KeyCode.U)){
+            touched = false;
+            transform.parent = null;
+            hasPlayer=false;
+          }
         }
     }
 }
