@@ -42,6 +42,7 @@ public class startGame : MonoBehaviour
               break;
           case 2:
               fire.SetActive(true);
+              level =-1;
               break;
           default:
               //Console.WriteLine("Default case");
