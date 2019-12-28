@@ -5,6 +5,7 @@ using UnityEngine;
 public class startGame : MonoBehaviour
 {
     public Transform nero;
+    public Transform P3;
     private bool calibration=true; //calibration is true when it has been calibrated
     private Vector3 A = new Vector3( -4f,0, 18f );
     //Vector3 B = new Vector3( 4f,0,  18f );
@@ -27,13 +28,15 @@ public class startGame : MonoBehaviour
           case 1:
               //Level 1 :  object destruction
               //Debug.Log("Level 1");
-             if(transform.position.z<13f && transform.position.y<1f && transform.position.x>-1.5f){
+             if(transform.position.z<12f && transform.position.y<1f && transform.position.x>-1.5f){
                Destroy(obj,1f);
     	         obj.transform.gameObject.SetActive(false);
                GameObject dest=Instantiate(objD,new Vector3(-1.197861f,0.5023094f,7f), transform.rotation) as GameObject;
-               level++;
-
                nero.gameObject.GetComponent<appear>().appearing(new Vector3(-0.36f,0.104f,9.746f));
+               StartCoroutine(waitForAWhile());
+               nero.gameObject.GetComponent<moveTo>().setTarget(P3);
+               nero.gameObject.GetComponent<moveTo>().setMove(true);
+               level++;
              }
               break;
           case 2:
@@ -52,6 +55,10 @@ public class startGame : MonoBehaviour
     public void setCalibration(bool t){
       calibration=t;
     }
+    IEnumerator waitForAWhile(){
+          yield return new WaitForSeconds(1f);
+
+      }
     public bool insideHouse(){
 
       if(transform.position.x<D.x && transform.position.x>A.x && transform.position.z>D.z && transform.position.z<A.z ){
