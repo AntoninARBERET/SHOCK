@@ -14,7 +14,7 @@ public class startGame : MonoBehaviour
     public GameObject obj;
     public GameObject objD;
     public GameObject fire;
-    private int level= 1; // if calibration is in progress ==> level = 0
+    private int level= 2; // if calibration is in progress ==> level = 0
     void Start()
     {
 
