@@ -13,6 +13,7 @@ public class startGame : MonoBehaviour
     private Vector3 D = new Vector3( 4f,0,  -6f );
     public GameObject obj;
     public GameObject objD;
+    public GameObject fire;
     private int level= 1; // if calibration is in progress ==> level = 0
     void Start()
     {
@@ -36,11 +37,11 @@ public class startGame : MonoBehaviour
                StartCoroutine(waitForAWhile());
                nero.gameObject.GetComponent<moveTo>().setTarget(P3);
                nero.gameObject.GetComponent<moveTo>().setMove(true);
-               level++;
+               level=-1;
              }
               break;
           case 2:
-              //Console.WriteLine("Level 2");
+              fire.SetActive(true);
               break;
           default:
               //Console.WriteLine("Default case");
@@ -65,5 +66,8 @@ public class startGame : MonoBehaviour
         return true;
       }
       return false;
+    }
+    public void setLevel(int l){
+      level=l;
     }
 }

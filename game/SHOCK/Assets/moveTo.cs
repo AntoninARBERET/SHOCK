@@ -6,6 +6,7 @@ public class moveTo : MonoBehaviour
 {   private bool move=false;
     // Start is called before the first frame update
     private Transform target=null;
+    
     void Start()
     {
 
@@ -19,6 +20,7 @@ public class moveTo : MonoBehaviour
           move=false;
           target=null;
           GetComponent<disappear>().disappearing();
+
         }
         else{
           transform.LookAt(target);
