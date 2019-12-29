@@ -6,7 +6,6 @@ public class moveTo : MonoBehaviour
 {   private bool move=false;
     // Start is called before the first frame update
     private Transform target=null;
-    
     void Start()
     {
 

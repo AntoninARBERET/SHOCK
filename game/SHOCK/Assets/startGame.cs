@@ -6,6 +6,8 @@ public class startGame : MonoBehaviour
 {
     public Transform nero;
     public Transform P3;
+    public Transform P4;
+    public Transform P5;
     private bool calibration=true; //calibration is true when it has been calibrated
     private Vector3 A = new Vector3( -4f,0, 18f );
     //Vector3 B = new Vector3( 4f,0,  18f );
@@ -14,7 +16,8 @@ public class startGame : MonoBehaviour
     public GameObject obj;
     public GameObject objD;
     public GameObject fire;
-    private int level= 2; // if calibration is in progress ==> level = 0
+    private GameObject dest;
+    private int level= 3; // if calibration is in progress ==> level = 0
     void Start()
     {
 
@@ -30,11 +33,12 @@ public class startGame : MonoBehaviour
               //Level 1 :  object destruction
               //Debug.Log("Level 1");
              if(transform.position.z<12f && transform.position.y<1f && transform.position.x>-1.5f){
-               Destroy(obj,1f);
+               //Destroy(obj,1f);
     	         obj.transform.gameObject.SetActive(false);
-               GameObject dest=Instantiate(objD,new Vector3(-1.197861f,0.5023094f,7f), transform.rotation) as GameObject;
+               dest=Instantiate(objD,new Vector3(-1.197861f,0.5023094f,7f), transform.rotation) as GameObject;
                nero.gameObject.GetComponent<appear>().appearing(new Vector3(-0.36f,0.104f,9.746f));
                StartCoroutine(waitForAWhile());
+               nero.gameObject.GetComponent<disappear>().setNextLevel(2);
                nero.gameObject.GetComponent<moveTo>().setTarget(P3);
                nero.gameObject.GetComponent<moveTo>().setMove(true);
                level=-1;
@@ -42,8 +46,20 @@ public class startGame : MonoBehaviour
               break;
           case 2:
               fire.SetActive(true);
+              Destroy(dest,1f);
+              dest.transform.gameObject.SetActive(false);
               level =-1;
               break;
+            case 3:
+                if(transform.position.z<11.33f && transform.position.y<1f && transform.position.x<-1.9f){
+                  nero.gameObject.GetComponent<appear>().appearing(P4.position);
+                  StartCoroutine(waitForAWhile());
+                  nero.gameObject.GetComponent<disappear>().setNextLevel(4);
+                  nero.gameObject.GetComponent<moveTo>().setTarget(P5);
+                  nero.gameObject.GetComponent<moveTo>().setMove(true);
+                  level =-1;
+                }
+                break;
           default:
               //Console.WriteLine("Default case");
               break;

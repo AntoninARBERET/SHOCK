@@ -5,6 +5,8 @@ using UnityEngine;
 public class disappear : MonoBehaviour
 {
     public Transform opie;
+    private int nextlevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +20,14 @@ public class disappear : MonoBehaviour
     }
     IEnumerator waitForAWhile(){
           yield return new WaitForSeconds(1f);
-          opie.gameObject.GetComponent<startGame>().setLevel(2);
+          opie.gameObject.GetComponent<startGame>().setLevel(nextlevel);
           transform.gameObject.SetActive(false);
       }
       public void disappearing(){
         StartCoroutine(waitForAWhile());
 
+      }
+      public void setNextLevel(int l){
+        nextlevel=l;
       }
 }
