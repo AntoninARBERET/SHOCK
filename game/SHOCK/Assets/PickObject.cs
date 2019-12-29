@@ -31,6 +31,7 @@ public class PickObject : MonoBehaviour
         }
         if(hasPlayer){
           transform.parent = playerCam;
+          transform.position=playerCam.position;
           if (Input.GetKey(KeyCode.E))
           {
             water.gameObject.SetActive(true);
