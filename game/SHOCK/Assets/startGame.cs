@@ -8,6 +8,8 @@ public class startGame : MonoBehaviour
     public Transform P3;
     public Transform P4;
     public Transform P5;
+    public Transform P6;
+    public Transform P7;
     private bool calibration=true; //calibration is true when it has been calibrated
     private Vector3 A = new Vector3( -4f,0, 18f );
     //Vector3 B = new Vector3( 4f,0,  18f );
