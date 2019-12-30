@@ -23,7 +23,7 @@ public class startGame : MonoBehaviour
     private bool stressed=false;
     private float timer  = 0.0f;
     private bool initgame=true;
-    private int level= 0; // if calibration is in progress ==> level = 0
+    private int level= 1; // if calibration is in progress ==> level = 0
     void Start()
     {
 
