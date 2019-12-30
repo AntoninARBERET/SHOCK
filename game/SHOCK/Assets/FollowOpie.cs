@@ -33,6 +33,7 @@ public class FollowOpie : MonoBehaviour
           GetComponent<AudioSource>().Play();
           cptAudio++;
           }
+          //if the calibration is not done yet, nero follows opie
           if(!calibration){
             transform.LookAt(player.transform);
             if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out shot)){
@@ -47,6 +48,7 @@ public class FollowOpie : MonoBehaviour
               }
             }
           }
+          //when the calibration is OK, nero flees (Level 1)
           else{
             if(gotoP1){
               inFrontOfHouse();
