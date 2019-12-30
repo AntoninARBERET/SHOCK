@@ -7,6 +7,9 @@ public class FollowOpie : MonoBehaviour
   public GameObject player;
   public Transform p1;
   public Transform p2;
+  public Camera opieCamera;
+  public Camera neroCamera;
+
   float target_dist;
   private float allowed_dist=1f;
   float speed;
@@ -16,6 +19,7 @@ public class FollowOpie : MonoBehaviour
   private bool gotoP2=false;
   private bool waiting=false;
   private int cptAudio=0;
+
   private bool insideHouse=false;
   private Vector3 targetPosition1,targetPosition2;
     // Start is called before the first frame update
@@ -23,6 +27,7 @@ public class FollowOpie : MonoBehaviour
     {
        targetPosition1=new Vector3(4.80f,transform.position.y, 17.0f);
        targetPosition2=new Vector3(3.0f,transform.position.y, 17.0f);
+       neroCamera.enabled = false;
     }
 
     // Update is called once per frame
@@ -55,6 +60,9 @@ public class FollowOpie : MonoBehaviour
               if(transform.position.Equals(targetPosition1)){
                 gotoP1=false;
                 waiting=true;
+                opieCamera.enabled = false;
+                neroCamera.enabled = true;
+
               }
             }else{
               if(waiting){
@@ -62,8 +70,11 @@ public class FollowOpie : MonoBehaviour
               }else{
                 if(gotoP2){
                   EnterHouse();
+
                   if(transform.position.Equals(targetPosition2)){
                     gotoP2=false;
+                    opieCamera.enabled = true;
+                    neroCamera.enabled = false;
                   }
                 }
                 else{
@@ -101,4 +112,5 @@ public class FollowOpie : MonoBehaviour
            GetComponent<Animator>().Play("Idle");
 
   }
+
 }

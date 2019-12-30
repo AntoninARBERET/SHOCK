@@ -12,11 +12,11 @@ public class extinguish : MonoBehaviour
      public float limit_fire=15f;
     void OnParticleCollision(GameObject other)
     {
-      if(timer<limit_fires){
+      if(timer<limit_fire){
         timer+= Time.deltaTime;
       }
       //If the player is too stressed or if the player extinguishes the fire
-      if(opie.gameObject.GetComponent<startGame>().isStressed() || timer>=limit_fires){
+      if(opie.gameObject.GetComponent<startGame>().isStressed() || timer>=limit_fire){
         fire.SetActive(false);
         //change the color  of the chair
         chair.gameObject.GetComponent<changeMaterial>().setMaterial();

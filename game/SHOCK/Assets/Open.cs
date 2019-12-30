@@ -20,7 +20,9 @@ public class Open : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        anim.SetTrigger("OpenDoor");
+        if(other.gameObject.tag=="Cat"){
+            anim.SetTrigger("OpenDoor");
+        }
     }
 
     void OnTriggerExit(Collider other)

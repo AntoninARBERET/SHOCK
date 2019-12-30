@@ -11,7 +11,7 @@ public class startGame : MonoBehaviour
     public Transform P4;
     public Transform P5;
     public Transform P6;
-    private bool calibration=false; //calibration is true when it has been calibrated
+    private bool calibration=true; //calibration is true when it has been calibrated
     private Vector3 A = new Vector3( -4f,0, 18f );
     //Vector3 B = new Vector3( 4f,0,  18f );
     //Vector3 C = new Vector3( 7f,0,  -6.25f );
@@ -22,6 +22,7 @@ public class startGame : MonoBehaviour
     private GameObject dest;
     private bool stressed=false;
     private float timer  = 0.0f;
+    private bool initgame=true;
     private int level= 0; // if calibration is in progress ==> level = 0
     void Start()
     {
@@ -30,6 +31,12 @@ public class startGame : MonoBehaviour
 
     void Update()
     {//when the calibration is done, the variable calibration is set to true and we start the game!!
+      //at he beginning, the calibration is not done yet, so nero gets that information too
+      if(initgame){
+        nero.gameObject.GetComponent<FollowOpie>().setCalibration(false);
+        initgame=false;
+      }
+
       if(calibration){
         nero.gameObject.GetComponent<FollowOpie>().setCalibration(true);
         if(insideHouse()){
@@ -135,6 +142,6 @@ public class startGame : MonoBehaviour
       level=l;
     }
     public bool isStressed(){
-      return streesed;
+      return stressed;
     }
 }
