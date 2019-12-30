@@ -19,7 +19,7 @@ public class startGame : MonoBehaviour
     public GameObject objD;
     public GameObject fire;
     private GameObject dest;
-    private int level= 3; // if calibration is in progress ==> level = 0
+    private int level= 4; // if calibration is in progress ==> level = 0
     void Start()
     {
 
@@ -54,12 +54,18 @@ public class startGame : MonoBehaviour
               break;
             case 3:
                 if(transform.position.z<11.33f && transform.position.y<1f && transform.position.x<-1.9f){
+                  Debug.Log("DETECTION");
                   nero.gameObject.GetComponent<appear>().appearing(P4.position);
                   StartCoroutine(waitForAWhile());
                   nero.gameObject.GetComponent<disappear>().setNextLevel(4);
                   nero.gameObject.GetComponent<moveTo>().setTarget(P5);
                   nero.gameObject.GetComponent<moveTo>().setMove(true);
                   level =-1;
+                }
+                break;
+              case 4:
+                if(transform.position.y>5f && transform.position.x>P6.position.x && transform.position.z==P7.position.z){
+                  transform.position=P6.position;
                 }
                 break;
           default:
