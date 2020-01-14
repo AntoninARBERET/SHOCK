@@ -11,7 +11,9 @@ public class startGame : MonoBehaviour
     public Transform P4;
     public Transform P5;
     public Transform P6;
-    private bool calibration=true; //calibration is true when it has been calibrated
+    private bool calibration=false; //calibration is true when it has been calibrated
+    public bool useBITAlino;
+    public PulsationConvertor pulseConv;
     private Vector3 A = new Vector3( -4f,0, 18f );
     //Vector3 B = new Vector3( 4f,0,  18f );
     //Vector3 C = new Vector3( 7f,0,  -6.25f );
@@ -35,6 +37,11 @@ public class startGame : MonoBehaviour
       if(initgame){
         nero.gameObject.GetComponent<FollowOpie>().setCalibration(false);
         initgame=false;
+      }
+
+      if(useBITAlino){
+        calibration=pulseConv.getCalibrated();
+        stressed=pulseConv.getStressed();
       }
 
       if(calibration){
