@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 public class startGame : MonoBehaviour
 {
     public Transform nero;
@@ -34,10 +34,7 @@ public class startGame : MonoBehaviour
 
     void Update()
     {
-       if(Input.GetKey(KeyCode.Escape)){
-        
-           SceneManager.LoadScene(1);
-       } 
+       
       //when the calibration is done, the variable calibration is set to true and we start the game!!
       //at he beginning, the calibration is not done yet, so nero gets that information too
       if(initgame){
