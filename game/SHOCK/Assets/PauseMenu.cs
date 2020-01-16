@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
 	public static bool GameIsPaused=false;
 	public GameObject pauseMenuUI;
+	public GameObject statsMenu;
 	public GameObject camera;
     // Update is called once per frame
     void Update()
@@ -22,6 +23,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume(){
         pauseMenuUI.SetActive(false);
+        statsMenu.SetActive(false);
         Time.timeScale=1f;
     	GameIsPaused=false;
     	camera.gameObject.GetComponent<ThirdPersonOrbitCamBasic>().enabled = true;
@@ -35,7 +37,14 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu(){
     	SceneManager.LoadScene(1);
     }
+    public void Stats(){
+    	statsMenu.SetActive(true);
+    	Time.timeScale=0f;
+    	GameIsPaused=true;
+    	camera.gameObject.GetComponent<ThirdPersonOrbitCamBasic>().enabled = false;
+    }
     public void QuitGame(){
     	Application.Quit();
     }
+    
 }
