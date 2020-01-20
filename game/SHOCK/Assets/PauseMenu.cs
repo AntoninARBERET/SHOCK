@@ -8,18 +8,23 @@ public class PauseMenu : MonoBehaviour
 	public GameObject pauseMenuUI;
 	public GameObject statsMenu;
 	public GameObject camera;
+	private double lastSwitch=-1;
+	[SerializeField] private WindowGraph wg;
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape)){
-        
+        if(Input.GetKey(KeyCode.Escape) && Time.realtimeSinceStartup-lastSwitch>1){
+        	lastSwitch=Time.realtimeSinceStartup;
+
            if(GameIsPaused){
            	Resume();
            }
            else{
            	Pause();
            }
-       } 
+       }
+
     }
     public void Resume(){
         pauseMenuUI.SetActive(false);
@@ -38,7 +43,17 @@ public class PauseMenu : MonoBehaviour
     	SceneManager.LoadScene(1);
     }
     public void Stats(){
+			wg.refresh();
+			pauseMenuUI.SetActive(false);
     	statsMenu.SetActive(true);
+    	Time.timeScale=0f;
+    	GameIsPaused=true;
+    	camera.gameObject.GetComponent<ThirdPersonOrbitCamBasic>().enabled = false;
+    }
+
+		public void QuitStats(){
+			pauseMenuUI.SetActive(true);
+    	statsMenu.SetActive(false);
     	Time.timeScale=0f;
     	GameIsPaused=true;
     	camera.gameObject.GetComponent<ThirdPersonOrbitCamBasic>().enabled = false;
@@ -46,5 +61,5 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame(){
     	Application.Quit();
     }
-    
+
 }

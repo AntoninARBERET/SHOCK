@@ -50,7 +50,7 @@ public class PulsationConvertor : MonoBehaviour
         }
         histo = new List<double>();
 
-        addPointToFile(107, "stress");
+        //addPointToFile(107, "stress");
     }
 
     // Update is called once per frame
@@ -127,9 +127,9 @@ public class PulsationConvertor : MonoBehaviour
       System.IO.StreamReader file = new System.IO.StreamReader(stressTracesFilePath);
       while((line = file.ReadLine()) != null)
       {
-          UnityEngine.Debug.Log(line);
+          //UnityEngine.Debug.Log(line);
           string[] values = line.Split(',');
-          UnityEngine.Debug.Log(values[0]);
+          //UnityEngine.Debug.Log(values[0]);
           if(values[1]=="normal"){
             normalValues.Add(double.Parse(values[0], System.Globalization.CultureInfo.InvariantCulture));
           }else{
@@ -170,7 +170,16 @@ public class PulsationConvertor : MonoBehaviour
 
     public void addPointToFile(double val, string state){
       if(stressTracesFilePath!=null){
-        File.AppendAllText(stressTracesFilePath,val+","+state);
+        //File.AppendAllText(stressTracesFilePath,val+","+state+";");
+
+        var csv = new StringBuilder();
+        string first = val.ToString();
+        string second=state;
+        var newLine = string.Format("{0},{1}{2}", first, second, Environment.NewLine);
+        csv.Append(newLine);
+
+
+        File.AppendAllText(stressTracesFilePath, csv.ToString());
       }
 
     }
