@@ -14,7 +14,7 @@ public class PulsationConvertor : MonoBehaviour
 
   public int deltaT = 10;
   public double deltaPulse = 0;
-  public double alpha = 0.05;
+  public double alpha = 0.01;
 
   private bool calibrated;
   private double beatRate;
@@ -26,6 +26,7 @@ public class PulsationConvertor : MonoBehaviour
   private int calibrateTreshold = 500;
   private int adjustmentRound = 0;
   private int adjustmentTreshold = 50;
+  private double calibrationValue;
 
   public string stressTracesFilePath=null;
   private double stressThreshold;
@@ -34,6 +35,13 @@ public class PulsationConvertor : MonoBehaviour
   private float lastRecord;
   public string histTracesFilePath=null;
   List<double> histo;
+
+  private int deltaTStressGap = 10;
+  private double deltaBPMStressGap = 20f;
+  private bool OnStressSpike;
+
+  private int lastAdjustement = 0;
+
     void Start()
     {
         beatRate = 0;
@@ -43,12 +51,15 @@ public class PulsationConvertor : MonoBehaviour
         lastRecord=0;
         if(stressTracesFilePath!=null){
           readStressTraces();
+        }else{
+          stressThreshold = 0;
         }
 
         if(histTracesFilePath!=null){
           File.WriteAllText(histTracesFilePath,string.Empty);
         }
         histo = new List<double>();
+        OnStressSpike = false;
 
         //addPointToFile(107, "stress");
     }
@@ -63,6 +74,8 @@ public class PulsationConvertor : MonoBehaviour
           recordBreatRate();
           if(!calibrated){
             checkCalibration();
+          }else{
+            checkStressGap();
           }
       }
     }
@@ -96,7 +109,9 @@ public class PulsationConvertor : MonoBehaviour
           calibrated = true;
           calibratingRound=0;
           UnityEngine.Debug.Log("calibrated around " + beatRate);
-          if(stressTracesFilePath==null){
+          calibrationValue = beatRate;
+          addPointToFile(beatRate, "normal");
+          if(stressThreshold<beatRate+0.2*beatRate){
             stressThreshold=beatRate+0.2*beatRate;
           }
         }
@@ -104,14 +119,22 @@ public class PulsationConvertor : MonoBehaviour
       }else{
         calibratingRound=0;
         adjustmentRound++;
-        if(adjustmentRound > adjustmentTreshold){
+        if(adjustmentRound < adjustmentTreshold){
           adjustmentRound=0;
           if(beatRate < lowerNormalBPM ){
-            deltaPulse=deltaPulse - alpha;
+            deltaPulse=deltaPulse  -alpha;
             UnityEngine.Debug.Log("To low => adjustment");
+            if(lastAdjustement==1){
+              alpha = alpha*0.9;
+            }
+            lastAdjustement=-1;
           }else{
             deltaPulse=deltaPulse + alpha;
             UnityEngine.Debug.Log("To high => adjustment");
+            if(lastAdjustement==-1){
+              alpha = alpha*0.9;
+            }
+            lastAdjustement=1;
           }
         }
       }
@@ -210,5 +233,25 @@ public class PulsationConvertor : MonoBehaviour
 
     public List<double> getHisto(){
       return histo;
+    }
+
+    private void checkStressGap(){
+      if(!OnStressSpike && histo.Count>deltaTStressGap){
+        if(beatRate - histo[histo.Count - deltaTStressGap] > deltaBPMStressGap){
+          OnStressSpike = true;
+          addPointToFile(beatRate, "stress");
+        }
+      }
+      else if(OnStressSpike && beatRate<stressThreshold){
+        OnStressSpike = false;
+      }
+    }
+
+    public double getCalibrationValue(){
+      return calibrationValue;
+    }
+
+    public double getStressValue(){
+      return stressThreshold;
     }
 }

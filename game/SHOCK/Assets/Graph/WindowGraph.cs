@@ -15,7 +15,7 @@ public class WindowGraph : MonoBehaviour
     private RectTransform labelTemplateY;
     private List<GameObject> tmpObjects =null;
     private List<RectTransform> tmpLabels =null;
-
+    private float YMinimum, YMaximum, graphHeight;
 
 
     private void Awake(){
@@ -46,6 +46,8 @@ public class WindowGraph : MonoBehaviour
         valueList = pc.getHisto();
       }
       ShowGraph(valueList);
+      CreateHorizontalLine((float)pc.getCalibrationValue(), new Color(0f,0.1f,0.7f));
+      CreateHorizontalLine((float)pc.getStressValue(), new Color(0.8f,0f,0f));
     }
 
 
@@ -67,10 +69,10 @@ public class WindowGraph : MonoBehaviour
     private void ShowGraph(List<double> valueList){
 
       float xSize = graphContainer.sizeDelta.x / (valueList.Count+1);
-      float YMaximum = (float)valueList.Max()+10;
+      YMaximum = (float)Math.Max(valueList.Max()+10, pc.getStressValue());
       UnityEngine.Debug.Log("max val : " +valueList.Max());
-      float YMinimum = (float)valueList.Min()-10;//40f;
-      float graphHeight = graphContainer.sizeDelta.y;
+      YMinimum = (float)valueList.Min()-10;//40f;
+      graphHeight = graphContainer.sizeDelta.y;
       Vector2 origin = new Vector2(xSize, 10);
       //CreateAxis(origin,YMinimum, YMaximum);
       GameObject lastCircleGameObject = null;
@@ -140,4 +142,20 @@ public class WindowGraph : MonoBehaviour
 
 
     }*/
+
+    private void CreateHorizontalLine(float value, Color color){
+      GameObject gameObject = new GameObject("line", typeof(Image));
+      RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+      gameObject.GetComponent<Image>().color = color;
+      Vector2 dir = new Vector2(1,0);
+      float distance =  graphContainer.sizeDelta.x;
+      gameObject.transform.SetParent(graphContainer, false);
+      rectTransform.anchorMin = new Vector2(0, 0);
+      rectTransform.anchorMax = new Vector2(0, 0);
+      rectTransform.sizeDelta = new Vector2(distance, 3f);
+      float yPosition = (float)(((value -YMinimum) / (YMaximum-YMinimum))  * graphHeight);
+      rectTransform.anchoredPosition = new Vector2(0, yPosition) + dir * distance*.5f;
+      rectTransform.localEulerAngles = new Vector3(0, 0, 0);
+      tmpObjects.Add(gameObject);
+    }
 }

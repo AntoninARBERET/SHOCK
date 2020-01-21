@@ -7,6 +7,7 @@ public class startGame : MonoBehaviour
     public Transform nero;
     public Transform wall_in;
     public Transform wall_out;
+    public Transform wall_inter;
     public Transform P3;
     public Transform P4;
     public Transform P5;
@@ -25,7 +26,10 @@ public class startGame : MonoBehaviour
     private bool stressed=false;
     private float timer  = 0.0f;
     private bool initgame=true;
-    private int level= 1; // if calibration is in progress ==> level = 0
+    private int level= 4; // if calibration is in progress ==> level = 0
+
+    [SerializeField] private ActivableFloor actFloor;
+    public bool lvl4done = false;
 
     void Start()
     {
@@ -34,7 +38,7 @@ public class startGame : MonoBehaviour
 
     void Update()
     {
-       
+
       //when the calibration is done, the variable calibration is set to true and we start the game!!
       //at he beginning, the calibration is not done yet, so nero gets that information too
       if(initgame){
@@ -45,6 +49,8 @@ public class startGame : MonoBehaviour
       if(useBITAlino){
         calibration=pulseConv.getCalibrated();
         stressed=pulseConv.getStressed();
+      }else{
+        calibration=true;
       }
 
       if(calibration){
@@ -87,29 +93,25 @@ public class startGame : MonoBehaviour
                 }
                 break;
               case 4:
-                //if the user is not stressed, we ++ / -- some walls
-                //the next level is availavle when the player is streesed or bored
-                if(!stressed){
-                  if(transform.position.y>1f && transform.position.x>3.02f && transform.position.z>-1.32f){
-                    wall_in.transform.gameObject.SetActive(true);
-                    timer+= Time.deltaTime;
-                  }
-                  if(transform.position.y>1f && transform.position.x>-0.12f && transform.position.x<1.19f && transform.position.z>-1.08f && transform.position.z<0.57f){
-                      wall_in.transform.gameObject.SetActive(false);
-                  }
-                  //if the user is never stressed, it may mean he is bored, so we permit him accessing the level 5
-                  if(timer>20f){
-                    level=5;
-                  }
-                //if the user is too stressed we stop  ++ / -- walls and finally open the wall to get to the next room (level 5)
-                }else{
+                if(lvl4done){
                   level=5;
-                }
+                }else{
+                  if(actFloor.getNbContact()>0){
+                    wall_in.transform.gameObject.SetActive(true);
+                  }
+                  if((!stressed && actFloor.getNbContact()>6) || (stressed && actFloor.getNbContact()>3)){
+                    wall_inter.transform.gameObject.SetActive(false);
+                  }
+
+
+                  }
+
+
                   break;
 
           //The end, nero follows Opie
           case 5:
-            wall_in.transform.gameObject.SetActive(false);
+            //wall_in.transform.gameObject.SetActive(false);
             wall_out.transform.gameObject.SetActive(false);
             //nero appears and follows opie getting outside the house
             nero.gameObject.GetComponent<appear>().appearing(P6.position);
